@@ -2,9 +2,28 @@
 
 var learnjs = {};
 
-learnjs.problemView = function(problemNumber) {
+learnjs.problems = [
+  {
+    description: "What is truth?",
+    code: "function problem() { return _; }"
+  },
+  {
+    description: "Simple Math",
+    code: "function problem() { return 42 === 6 * _; }"
+  }
+];
+
+learnjs.applyObject = function(obj, elem) {
+  for(var key in obj) {
+    elem.find('[data-name="' + key + '"]').text(obj[key]);
+  }
+}
+
+learnjs.problemView = function(data) {
+  var problemNumber = parseInt(data, 10);
   var view = $('.templates .problem-view').clone();
   view.find('.title').text('Problem #' + problemNumber);
+  learnjs.applyObject(learnjs.problems[problemNumber - 1], view)
   return view;
 }
 
@@ -25,3 +44,6 @@ learnjs.appOnReady = function() {
   };
   learnjs.showView(window.location.hash);
 }
+
+
+
